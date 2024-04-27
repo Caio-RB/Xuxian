@@ -49,8 +49,10 @@ pacotesBasicos(){
 pacotesBasicos
 
 pacotesNativos(){
-	sudo apt install cheese chromium tuxmath drawing gimp keepassxc -y
+	sudo apt install cheese chromium tuxmath drawing gimp keepassxc ttf-mscorefonts-installer deepin-icon-theme geany -y
 	wget -c https://github.com/FreeTubeApp/FreeTube/releases/download/v0.20.0-beta/freetube_0.20.0_amd64.deb -P ~/Downloads/
 	wget -c https://www.freeoffice.com/download.php?filename=https://www.softmaker.net/down/softmaker-freeoffice-2021_1068-01_amd64.deb -P ~/Downloads/
 	dpkg -i /home/$USER/Downloads/*.deb
 }
+pacotesNativos
+
