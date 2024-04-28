@@ -356,7 +356,7 @@
     <!-- super menu -->
     <keybind key="Super_L">
 	<action name="Execute">
-	<command>rofi -show menu</command>
+	<command>rofi -show window</command>
 	</action>	    
      </keybind>
   </keyboard>

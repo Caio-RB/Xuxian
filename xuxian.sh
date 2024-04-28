@@ -58,7 +58,7 @@ pacotesBasicos
 
 pacotesNativos(){
 	echo "Instalando fontes, icones e programas nativos(.deb)"
-	sudo apt install cheese chromium tuxmath drawing gimp keepassxc ttf-mscorefonts-installer deepin-icon-theme geany klavaro -y
+	sudo apt install cheese chromium tuxmath drawing gimp keepassxc ttf-mscorefonts-installer deepin-icon-theme geany klavaro alacarte -y
 	wget -c https://github.com/FreeTubeApp/FreeTube/releases/download/v0.20.0-beta/freetube_0.20.0_amd64.deb -P /home/$USER/Downloads/
 	wget -c https://www.freeoffice.com/download.php?filename=https://www.softmaker.net/down/softmaker-freeoffice-2021_1068-01_amd64.deb -P /home/$USER/Downloads/
 
@@ -71,17 +71,38 @@ pacotesNativos
 pacotesFlatpak(){
 	echo "Adicionando repositorio flathub"
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo  
+	
 	echo "Instalando pacotes flatpak"
 	flatpak install com.snes9x.Snes9x -y 
+	
+	echo "Instalando loja de aplicativos(bauh)"
+	mkdir -p .appimages/
+	wget -c https://github.com/vinifmor/bauh/releases/download/0.10.7/bauh-0.10.7-x86_64.AppImage -P /home/$USER/.appimages/
+	sudo chmod +x /home/$USER/.appimages/bauh-0.10.7-x86_64.AppImage
 }
 pacotesFlatpak
 
 #Habilitando click com touch pad e definindo atalhos de teclado
 touchpadTeclado(){
 	echo "Habilitando clique do touchpad"
-	cp ./.xsessionrc /home/$USER/
+	cp ./xsessionrc /home/$USER/.xsessionrc
 	echo "Definindo teclas de atalho"
 	cp ./lxde-rc.xml /home/$USER/.config/openbox/
 }
 touchpadTeclado
+
+#Desabilitando SSH
+disableSsh(){
+	echo "Desabilitando ssh na inicialização do sistema."
+	sudo systemctl disable ssh
+}
+disableSsh
+#Configurando Rofi
+rofiConfig(){
+	echo "Configurando menu(rofi)."
+	cp ./rofi.tar.gz /home/$USER/.config/rofi/
+	tar -xzf /home/$USER/.config/rofi/rofi.tar.gz
+	rm /home/$USER/.config/rofi/rofi.tar.gz
+}
+rofiConfig
 
