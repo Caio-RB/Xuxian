@@ -30,14 +30,20 @@ addSudo(){
 	echo "Adicionando usuario ao grupo sudo"
 	usermod -aG sudo $USER
 	newgrp sudo
+	echo "Usuario adicionado ao grupo sudo!"
 }
 addSudo
 
 #Adicionadno repositorio contrib e non-free no debian
 addRepo(){
 	echo "Adicionando repositorios contrib e non-free"
+	sudo apt update
 	sudo apt install software-properties-common
 	sudo add-apt-repository deb http://ftp.debian.org/debian stable main contrib non-free
+	sudo apt update
+	clear
+	echo "Repositórios adicionados"
+
 }
 addRepo
 
@@ -45,14 +51,37 @@ addRepo
 pacotesBasicos(){
 	echo "Instalando pacotes basicos"
 	sudo apt install neofetch curl openssh-server ufw gufw xinput flatpak network-manager network-manager-gnome git rofi htop gdebi make  -y
+	clear
+	echo "Pacotes Basicos adicionados: neofetch curl openssh-server ufw gufw xinput flatpak network-manager network-manager-gnome git rofi htop gdebi make"
 }
 pacotesBasicos
 
 pacotesNativos(){
-	sudo apt install cheese chromium tuxmath drawing gimp keepassxc ttf-mscorefonts-installer deepin-icon-theme geany -y
-	wget -c https://github.com/FreeTubeApp/FreeTube/releases/download/v0.20.0-beta/freetube_0.20.0_amd64.deb -P ~/Downloads/
-	wget -c https://www.freeoffice.com/download.php?filename=https://www.softmaker.net/down/softmaker-freeoffice-2021_1068-01_amd64.deb -P ~/Downloads/
+	echo "Instalando fontes, icones e programas nativos(.deb)"
+	sudo apt install cheese chromium tuxmath drawing gimp keepassxc ttf-mscorefonts-installer deepin-icon-theme geany klavaro -y
+	wget -c https://github.com/FreeTubeApp/FreeTube/releases/download/v0.20.0-beta/freetube_0.20.0_amd64.deb -P /home/$USER/Downloads/
+	wget -c https://www.freeoffice.com/download.php?filename=https://www.softmaker.net/down/softmaker-freeoffice-2021_1068-01_amd64.deb -P /home/$USER/Downloads/
+
 	dpkg -i /home/$USER/Downloads/*.deb
+	clear
+	echo "Instalação completa"
 }
 pacotesNativos
+
+pacotesFlatpak(){
+	echo "Adicionando repositorio flathub"
+	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo  
+	echo "Instalando pacotes flatpak"
+	flatpak install com.snes9x.Snes9x -y 
+}
+pacotesFlatpak
+
+#Habilitando click com touch pad e definindo atalhos de teclado
+touchpadTeclado(){
+	echo "Habilitando clique do touchpad"
+	cp ./.xsessionrc /home/$USER/
+	echo "Definindo teclas de atalho"
+	cp ./lxde-rc.xml /home/$USER/.config/openbox/
+}
+touchpadTeclado
 
